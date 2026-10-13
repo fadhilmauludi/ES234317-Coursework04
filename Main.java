@@ -2,9 +2,9 @@
  * ES234317 - Algorithms and Data Structures
  * Gasal | 2026-2027
  * Coursework   : 04
- * Student ID   : 
- * Full Name    : 
- * Class        : 
+ * Student ID   : 5026251221
+ * Full Name    : Fadhil Mauludi
+ * Class        : C
  */
 
 import java.util.*;
@@ -44,27 +44,61 @@ public class Main {
         
         System.out.println(isPalindrome(q1));
         System.out.println(isPalindrome(q2));
-        
-        
-        
     }
     
     public static Set<Integer> twice(List<Integer> l){
         Set<Integer> s = new TreeSet<Integer>();
-        //complete your code here
+        Set<Integer> once = new HashSet<Integer>();
+        Set<Integer> many = new HashSet<Integer>();
+
+        for (int x : l) {
+            if (many.contains(x)) {
+                continue;
+            } else if (s.contains(x)) {
+                s.remove(x);
+                many.add(x);
+            } else if (once.contains(x)) {
+                once.remove(x);
+                s.add(x);
+            } else {
+                once.add(x);
+            }
+        }
         return s;
     }
     
-    public static boolean  hasDuplicateValue(Map<String,String> m){
-        boolean s=false;
-        //complete your code here
+    public static boolean hasDuplicateValue(Map<String,String> m){
+        boolean s = false;
         
+        Set<String> seen = new HashSet<String>();
+        for (String value : m.values()) {
+            if (!seen.add(value)) {
+                s = true;
+                break;
+            }
+        }
         return s;
     }
     
     public static boolean isPalindrome(Queue<Integer> q){
-        boolean s=false;
-        //complete your code here
+        boolean s = true;
+        int n = q.size();
+        Stack<Integer> stack = new Stack<Integer>();
+
+        for (int i = 0; i < n; i++) {
+            int x = q.remove();
+            stack.push(x);
+            q.add(x);
+        }
+
+        for (int i = 0; i < n; i++) {
+            int x = q.remove();
+            int y = stack.pop();
+            if (x != y) {
+                s = false;
+            }
+            q.add(x);
+        }
         
         return s;
     }
